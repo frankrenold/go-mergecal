@@ -7,13 +7,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/GoogleCloudPlatform/functions-framework-go/functions"
 	ics "github.com/arran4/golang-ical"
 )
-
-func init() {
-	functions.HTTP("HandleRequest", HandleCalendar)
-}
 
 func main() {
 	// Parse command line flags
