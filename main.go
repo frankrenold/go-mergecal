@@ -21,11 +21,11 @@ func main() {
 	flag.Parse()
 
 	// Create a handler for the calendar endpoint
-	http.HandleFunc("/calendar.ics", HandleCalendar)
+	http.HandleFunc("/", HandleCalendar)
 
 	// Start the server
 	serverAddr := fmt.Sprintf(":%d", *port)
-	log.Printf("Starting iCal server on http://localhost%s/calendar.ics", serverAddr)
+	log.Printf("Starting iCal server on http://localhost%s", serverAddr)
 	log.Fatal(http.ListenAndServe(serverAddr, nil))
 }
 
