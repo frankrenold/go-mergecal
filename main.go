@@ -16,10 +16,6 @@ func init() {
 }
 
 func main() {
-
-}
-
-func HandleRequest(w http.ResponseWriter, r *http.Request) {
 	// Parse command line flags
 	port := flag.Int("port", 8080, "Port to serve on")
 	flag.Parse()
