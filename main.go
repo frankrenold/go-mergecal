@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"net/http"
@@ -15,7 +16,17 @@ func init() {
 }
 
 func main() {
+	// Parse command line flags
+	port := flag.Int("port", 8080, "Port to serve on")
+	flag.Parse()
 
+	// Create a handler for the calendar endpoint
+	http.HandleFunc("/calendar.ics", HandleCalendar)
+
+	// Start the server
+	serverAddr := fmt.Sprintf(":%d", *port)
+	log.Printf("Starting iCal server on http://localhost%s/calendar.ics", serverAddr)
+	log.Fatal(http.ListenAndServe(serverAddr, nil))
 }
 
 func HandleCalendar(w http.ResponseWriter, r *http.Request) {
