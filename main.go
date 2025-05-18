@@ -7,16 +7,25 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/GoogleCloudPlatform/functions-framework-go/functions"
 	ics "github.com/arran4/golang-ical"
 )
 
+func init() {
+	functions.HTTP("HandleRequest", HandleCalendar)
+}
+
 func main() {
+
+}
+
+func HandleRequest(w http.ResponseWriter, r *http.Request) {
 	// Parse command line flags
 	port := flag.Int("port", 8080, "Port to serve on")
 	flag.Parse()
 
 	// Create a handler for the calendar endpoint
-	http.HandleFunc("/calendar.ics", handleCalendar)
+	http.HandleFunc("/calendar.ics", HandleCalendar)
 
 	// Start the server
 	serverAddr := fmt.Sprintf(":%d", *port)
@@ -24,7 +33,7 @@ func main() {
 	log.Fatal(http.ListenAndServe(serverAddr, nil))
 }
 
-func handleCalendar(w http.ResponseWriter, r *http.Request) {
+func HandleCalendar(w http.ResponseWriter, r *http.Request) {
 	// Create a new calendar
 	cal := ics.NewCalendar()
 	cal.SetMethod(ics.MethodPublish)
